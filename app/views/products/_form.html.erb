@@ -1,0 +1,71 @@
+<div class="container-sm">
+<%= form_with(model: product, local: true) do |form| %>
+  <% if product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+        <% product.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <div class="field">
+      <%= form.label :name %>
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="field">
+      <%= form.label :description %>
+      <%= form.text_area :description, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= form.label :quantity %>
+      <%= form.number_field :quantity, class: 'form-control' %>
+    </div>
+
+    <div class="col">
+      <%= form.label :price %>
+      <%= form.number_field :price, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :category_elements %>
+    <div class="form-group form-check">
+      <% @categories.each do |category| %>
+      <%= form.check_box :category_elements, {multiple: true}, category.id, nil %>
+      <%= category.name %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :status %>
+    <div class="field">
+      <%= form.collection_select :status, Status.all(), :name, :name %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="field">
+      <%= form.label :images %>
+      <%= form.file_field :images, multiple: true, class: 'form-control-file' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  </div>
+  <% end %>
+</div>

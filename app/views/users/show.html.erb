@@ -1,0 +1,34 @@
+<h1>User <%= @user.email %></h1>
+
+<div class="row">
+<% @user.products.all.each do |product| %>
+  <% next unless product.published? || current_user.id == product.user.id %>
+
+  <div class="col-sm margin-top">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title"><%= product.name %></h5>
+        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <p class="card-text"><%= product.description %>.</p>
+        <p><%= product.price %></p>
+        <% if product.status == 'published' %>
+          <p class="badge badge-success"><%= product.status %></p>
+        <% elsif product.status == 'unpublished' %>
+          <p class="badge badge-warning"><%= product.status %></p>
+        <% else %>
+          <p class="badge badge-light"><%= product.status %></p>
+        <% end %>
+        <hr>
+        <% if user_signed_in? && current_user.id == product.user.id %>
+          <%= link_to 'Edit', edit_product_path(product), class: 'btn btn-primary' %> |
+          <% if product.status == 'published'%>
+            <%= link_to 'Archive', change_status_path(product), class: 'btn btn-warning' %>
+          <% else %>
+            <%= link_to 'Publish', change_status_path(product), class: 'btn btn-success' %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
