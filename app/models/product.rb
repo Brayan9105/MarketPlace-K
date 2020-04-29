@@ -2,11 +2,11 @@ class Product < ApplicationRecord
   has_many :productxcategories
   has_many :categories, through: :productxcategories
   belongs_to :user
-
   has_many_attached :images
 
-  enum status: [:published, :archived, :unpublished]
+  validates :name, presence: true, length: {minimum: 4}
 
+  enum status: [:published, :archived, :unpublished]
   attr_accessor :category_elements
 
   def save_categories
