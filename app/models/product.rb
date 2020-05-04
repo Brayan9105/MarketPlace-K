@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   has_many_attached :images
 
   validates :name, presence: true, length: {minimum: 4}
+  validate :correct_image_type
 
   enum status: [:published, :archived, :unpublished]
   attr_accessor :category_elements
@@ -29,6 +30,16 @@ class Product < ApplicationRecord
     elsif self.status == 'archived' || self.status == 'unpublished'
       self.status = 'published'
       self.save
+    end
+  end
+
+  def correct_image_type
+    if images.attached?
+      images.each do |image|
+        unless image.content_type.in?(%w(image/jpeg image/png))
+          errors.add(:images, 'Must be a JPEG or PNG')
+        end
+      end
     end
   end
 end

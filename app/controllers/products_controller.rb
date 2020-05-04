@@ -24,9 +24,8 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.save
         @product.save_categories
-        # [:notice] = 'Product was successfully created.'
-        redirect_to @product
-
+        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+        format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :new }
         format.json { render json: @product.errors, status: :unprocessable_entity }
