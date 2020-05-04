@@ -76,5 +76,29 @@ RSpec.describe Product, type: :model do
         end
       end
     end#Categories
+
+    describe 'status' do
+      let(:product) { Product.create(name: 'test product', user: user) }
+
+      context 'when the status is changed in the user profile' do
+        it 'changes from unpublished to published status' do
+          product.status = 'unpublished'
+          product.change_status
+          expect(product.status).to eq('published')
+        end
+
+        it 'changes from archived to published status' do
+          product.status = 'archived'
+          product.change_status
+          expect(product.status).to eq('published')
+        end
+
+        it 'changes to archived status' do
+          product.status = 'published'
+          product.change_status
+          expect(product.status).to eq('archived')
+        end
+      end
+    end#Status
   end#validations
 end
