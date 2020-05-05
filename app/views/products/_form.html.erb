@@ -41,9 +41,11 @@
   <div class="form-group">
     <%= form.label :category_elements %>
     <div class="form-group form-check">
-      <% @categories.each do |category| %>
-      <%= form.check_box :category_elements, {multiple: true}, category.id, nil %>
-      <%= category.name %>
+      <% if @categories %>
+        <% @categories.each do |category| %>
+          <%= form.check_box :category_elements, {multiple: true}, category.id, nil %>
+          <%= category.name %>
+        <% end %>
       <% end %>
     </div>
   </div>
