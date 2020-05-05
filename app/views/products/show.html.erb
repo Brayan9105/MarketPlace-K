@@ -3,7 +3,7 @@
 <% if @product.images.attached? %>
   <% @product.images.each_with_index do |image, index| %>
     <%= image_tag image.variant(resize_to_limit: [100, 100]) %>
-    <%= link_to 'Delete', delete_image_product_path(@product, {index: index}), method: :delete %>
+    <%= link_to 'Delete', delete_image_product_path(@product, {index: index}), method: :delete if user_signed_in? && (current_user.id == @product.user.id) %>
   <% end %>
 <% else %>
   <p>This product does not have image attached</p>
