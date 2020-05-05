@@ -10,6 +10,10 @@ class Product < ApplicationRecord
   enum status: [:published, :archived, :unpublished]
   attr_accessor :category_elements
 
+  scope :published, -> { where(status: 'published')}
+  scope :unpublished, -> { where(status: 'unpublished')}
+  scope :archived, -> { where(status: 'archived')}
+
   def save_categories
     return productxcategories.destroy_all if category_elements.nil? || category_elements.empty?
 
