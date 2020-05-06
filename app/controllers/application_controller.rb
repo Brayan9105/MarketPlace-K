@@ -4,7 +4,11 @@ class ApplicationController < ActionController::Base
   def configure_devise_params
     devise_parameter_sanitizer.permit(:sign_up) do |user|
        user.permit(:first_name, :last_name, :email, :cellphone, :address, :password)
-     end
+    end
+
+    devise_parameter_sanitizer.permit(:account_update) do |user|
+       user.permit(:first_name, :last_name, :email, :cellphone, :address, :password)
+    end
   end
 
   def is_propietary!(stuff)
