@@ -5,7 +5,6 @@ RSpec.describe Product, type: :model do
     let(:user) {User.create(email: 'test@test.com', password: '12345678')}
 
     describe 'name' do
-
       context 'when it is empty' do
         it 'is not valid' do
           expect(Product.new(user: user).valid?).to be_falsey

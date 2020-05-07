@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2020_05_05_163418) do
+ActiveRecord::Schema.define(version: 2020_05_05_223139) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -59,7 +58,6 @@ ActiveRecord::Schema.define(version: 2020_05_05_163418) do
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
-
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -112,4 +110,6 @@ ActiveRecord::Schema.define(version: 2020_05_05_163418) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "productxcategories", "categories"
   add_foreign_key "productxcategories", "products"
+  add_foreign_key "social_accounts", "authentication_providers"
+  add_foreign_key "social_accounts", "users"
 end
