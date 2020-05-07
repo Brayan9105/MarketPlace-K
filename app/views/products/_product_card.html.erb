@@ -1,0 +1,56 @@
+<% object.each do |product| %>
+  <% next unless product.published? || current_user.id == product.user.id %>
+
+    <div class="card mx-4 my-2" style="min-width: 18rem;">
+      <div class="card-body">
+        <div class="product-image">
+          <% if product.images.attached? %>
+            <%= link_to (image_tag(product.images[0], class: "cover")), product_path(product)  %>
+          <% else %>
+            <div class="py-5 px-5">
+              No image attached
+            </div>
+          <% end %>
+        </div>
+        <h5 class="card-title mt-3">
+          <%= link_to product.name, product_path(product) %>
+        </h5>
+        <p class="card-text">
+          <%= truncate(product.description, length: 35, omission: "...") %><br>
+          <small>
+            <%= link_to 'See more', product_path(product) %>
+          </small>
+        </p>
+        <p>
+          Price: $<%= product.price %>
+        </p>
+        <p>
+          Quantity: <%= product.quantity %>
+        </p>
+        <p>
+          <% product.categories.each do |category| %>
+            <span class="badge badge-secondary"><%= link_to category.name, category_path(category), class: 'text-light px-1 py-2' %></span>
+          <% end %>
+        </p>
+        Status:
+        <% if product.status == 'published' %>
+          <p class="badge badge-success p-2"><%= product.status %></p>
+        <% elsif product.status == 'unpublished' %>
+          <p class="badge badge-warning p-2"><%= product.status %></p>
+        <% else %>
+          <p class="badge badge-light p-2"><%= product.status %></p>
+        <% end %>
+
+        <hr>
+
+        <% if user_signed_in? && current_user.id == product.user.id %>
+          <%= link_to 'Edit', edit_product_path(product), class: 'btn btn-primary text-light' %> |
+          <% if product.status == 'published'%>
+            <%= link_to 'Archive', change_status_path(product), class: 'btn btn-warning text-light' %>
+          <% else %>
+            <%= link_to 'Publish', change_status_path(product), class: 'btn btn-success text-light' %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+<% end %>
