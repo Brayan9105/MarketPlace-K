@@ -1,2 +1,19 @@
-<h1>Pages#welcome</h1>
-<p>Find me in app/views/pages/welcome.html.erb</p>
+<div class="container py-5 px-5">
+  <div class="jumbotron soft-purple">
+    <h1 class="display-4 text-light">Marketplace</h1>
+    <% if user_signed_in? %>
+      <p class="text-light">Welcome <%= link_to current_user.email, user_path(current_user), class: "text-light" %></p>
+    <% else %>
+      <p class="lead text-light">If you want to create products and comments you need an account.</p>
+    <% end %>
+    <hr class="my-4 bg-light">
+    <% if user_signed_in? %>
+    <p class="lead text-light">See the news products or create one!</p>
+      <%= link_to "Products", products_path, class: "btn btn-light btn-lg" %>
+      <%= link_to "Create product", new_product_path, class: "btn btn-light btn-lg" %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path, class: "btn btn-light btn-lg" %>
+      <%= link_to "Log in", new_user_session_path, class: "btn btn-light btn-lg" %>
+    <% end %>
+  </div>
+</div>

@@ -3,3 +3,29 @@
 .margin-top {
   margin-top: 10px;
 }
+
+.soft-purple {
+  background-color: #9c32d9;
+}
+
+.inline {
+  display: inline;
+}
+
+.max-width {
+  width : 100%
+}
+
+.product-image {
+  border-radius: 5%;
+  border: solid #fcfcfc 1px;
+  width: 15rem;
+  height: 9rem;
+}
+
+.cover {
+  border-radius: 5%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
