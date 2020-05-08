@@ -11,11 +11,14 @@
         <b class="mx-2">
           <%= pluralize(@users.count, "User") %>
         </b>
-        <%= link_to "Sign up", new_user_registration_path, class: "btn btn-success text-light mx-3" %>
+        <% unless current_user %>
+          <%= link_to "Sign up", new_user_registration_path, class: "btn btn-success text-light ml-3" %>
+          <%= link_to "Log in", new_user_session_path, class: "btn btn-primary text-light mx-2" %>
+        <% end %>
       </div>
       <hr>
       <div class="d-flex flex-wrap">
-        <!->
+        <%= render 'user_card', obj: @users %>
       </div>
     </div>
   </div>
