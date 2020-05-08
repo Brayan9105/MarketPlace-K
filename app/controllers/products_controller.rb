@@ -7,7 +7,11 @@ class ProductsController < ApplicationController
     @products = Product.published
   end
 
-  def show() end
+  def show
+    if (current_user.id != @product.user.id) && @product.archived?
+      redirect_to products_path
+    end
+  end
 
   def new
     @product = Product.new
