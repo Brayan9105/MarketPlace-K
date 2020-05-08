@@ -43,7 +43,7 @@ class ProductsController < ApplicationController
 
   def change_status
     Product.find(params[:id]).change_status
-    redirect_to user_path(current_user)
+    redirect_back(fallback_location: root_path)
   end
 
   def delete_image
