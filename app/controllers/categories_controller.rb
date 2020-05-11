@@ -10,15 +10,6 @@ class CategoriesController < ApplicationController
     @products = @category.products
   end
 
-  def new
-    @category = Category.new
-    redirect_to categories_path
-  end
-
-  def edit
-    redirect_to categories_path
-  end
-
   def create
     @category = Category.new(category_params)
     if @category.save
@@ -39,9 +30,12 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    @category.destroy
-    flash[:notice] = 'Category was successfully destroyed.'
-    redirect_to categories_url
+    if @category.destroy
+      flash[:notice] = 'Category was successfully destroyed.'
+      redirect_to categories_path
+    else
+      redirect_to @category
+    end
   end
 
   private

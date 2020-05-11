@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  resources :categories
+  resources :categories, except: [:new, :edit]
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
   get 'user/:id', to: 'users#show', as: 'user'
