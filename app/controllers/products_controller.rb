@@ -8,8 +8,10 @@ class ProductsController < ApplicationController
   end
 
   def show
-    if (current_user.id != @product.user.id) && @product.archived?
+    if (current_user.id != @product.user.id) && !@product.published?
       redirect_to products_path
+    else
+      @product
     end
   end
 

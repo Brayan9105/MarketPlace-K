@@ -8,7 +8,7 @@
     <div class="card max-width pb-3 px-3 d-flex">
       <div class="d-flex justify-content-end pt-3">
         <b class="mx-2">
-          <%= pluralize(@products.count, "product") %> published
+          <%= pluralize(@products.published.count, "product") %> published
         </b>
         <%= link_to "Create product", new_product_path, class: "btn btn-success text-light mx-3" %>
       </div>
