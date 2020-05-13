@@ -1,29 +1,62 @@
+<div class="row py-3 soft-purple mb-3">
+  <div class="container">
+    <h2 class="display-4 text-light mb-0"><%= @product.name %></h2>
+    <p class="lead text-light mt-0">Created by: <%= link_to @product.user.email, user_path(@product.user), class: 'text-light' %></p>
+  </div>
+</div>
+
 <p id="notice"><%= notice %></p>
 
-<% if @product.images.attached? %>
-  <% @product.images.each_with_index do |image, index| %>
-    <%= image_tag image.variant(resize_to_limit: [100, 100]) %>
-    <%= link_to 'Delete', delete_image_product_path(@product, {index: index}), method: :delete if user_signed_in? && (current_user.id == @product.user.id) %>
-  <% end %>
-<% else %>
-  <p>This product does not have image attached</p>
-<% end %>
+<div class="container">
+  <div class="card max-width px-3 py-3">
+    <div class="row">
+      <%= link_to "Back", products_path, class: "btn btn-light ml-3" %>
+      <div class="col d-flex align-item-end">
+        <%= render 'action_buttoms', obj: @product %>
+      </div>
+    </div>
+    <hr>
+    <div class="card-body">
+      <p class="card-text"><%= @product.description %>.</p>
+      <div class="row">
+        <div class="col-3">
+          <p class="card-text">Quanity: <%= @product.quantity %></p>
+        </div>
+        <div class="col-3">
+          <p class="card-text">Price: $<%= @product.price %></p>
+        </div>
+        <div class="col-3">
+          Status:
+          <% if @product.status == 'published' %>
+            <p class="badge badge-success p-2"><%= @product.status %></p>
+          <% elsif @product.status == 'unpublished' %>
+            <p class="badge badge-warning p-2"><%= @product.status %></p>
+          <% else %>
+            <p class="badge badge-light p-2"><%= @product.status %></p>
+          <% end %>
+        </div>
+      </div>
 
-<div class="card w-75">
-  <div class="card-body">
-    <h5 class="card-title"><%= @product.name %></h5>
-    <p class="card-text"><%= @product.description %>.</p>
-    <p class="card-text">  <%= @product.user.email %>.</p>
-    <p class="card-text"><%= @product.quantity %>.</p>
-    <p class="card-text"><%= @product.price %>.</p>
-    <% @product.categories.each do |category| %>
-      <span class="badge badge-secondary"><%= link_to category.name, category_path(category) %></span>
-    <% end %>
-    <p class="card-text"><%= @product.status %>.</p>
+      <p>Categories associated:</p>
+      <div class="row">
+        <% @product.categories.each do |category| %>
+          <span class="badge badge-secondary"><%= link_to category.name, category_path(category), class: 'text-light px-1 py-2' %></span>
+        <% end %>
+      </div>
 
-    <% if user_signed_in? && current_user.id == @product.user.id %>
-      <%= link_to 'Edit', edit_product_path(@product) %> |
-      <%= link_to 'Back', products_path %>
-    <% end %>
+      <div class="row mt-3">
+        <% if @product.images.attached? %>
+          <% @product.images.each_with_index do |image, index| %>
+            <div class="product-image mr-3 mb-3">
+              <%= image_tag (image), class: "cover" %>
+              <%= link_to 'Delete', delete_image_product_path(@product, {index: index}), class: "btn btn-danger text-light", method: :delete if user_signed_in? && (current_user.id == @product.user.id) %>
+            </div>
+          <% end %>
+        <% else %>
+          <div>This product does not have image attached</div>
+        <% end %>
+      </div>
+    </div>
   </div>
+  <div class="bspace"></div>
 </div>

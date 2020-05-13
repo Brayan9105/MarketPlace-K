@@ -1,0 +1,8 @@
+<% if user_signed_in? && current_user.id == obj.user.id %>
+  <%= link_to 'Edit', edit_product_path(obj), class: 'btn btn-primary text-light' %> |
+      <% if obj.status == 'published'%>
+      <%= link_to 'Archive', change_status_path(obj), class: 'btn btn-warning text-light' %>
+    <% else %>
+      <%= link_to 'Publish', change_status_path(obj), class: 'btn btn-success text-light' %>
+    <% end %>
+<% end %>

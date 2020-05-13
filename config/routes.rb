@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
+  root 'pages#welcome'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  root 'products#index'
-
-  resources :categories
+  resources :categories, only: [:index, :show]
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
   get 'user/:id', to: 'users#show', as: 'user'
+  get 'users', to: 'users#index'
 
   resources :products
   resources :products do

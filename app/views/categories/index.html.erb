@@ -1,27 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div class="row justify-content-md-center py-5 soft-purple mb-3">
+    <h2 class="display-4 text-light">Categories</h2>
+</div>
 
-<h1>Categories</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @categories.each do |category| %>
-      <tr>
-        <td><%= category.name %></td>
-        <td><%= link_to 'Show', category %></td>
-        <td><%= link_to 'Edit', edit_category_path(category) %></td>
-        <td><%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Category', new_category_path %>
+<div class="container py-3">
+  <p id="notice"><%= notice %></p>
+  <div class="row">
+    <div class="card max-width pb-3 px-3 d-flex">
+      <div class="d-flex justify-content-end pt-3">
+        <b class="mx-2">
+          <%= pluralize(@categories.count, "category") %>
+        </b>
+        <%= link_to "Create product", new_product_path, class: "btn btn-success text-light ml-3" %>
+      </div>
+      <hr>
+      <div class="d-flex flex-wrap">
+        <%= render 'category_card', obj: @categories %>
+      </div>
+    </div>
+  </div>
+</div>

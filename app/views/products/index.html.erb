@@ -1,31 +1,21 @@
+<div class="row justify-content-md-center py-5 soft-purple mb-3">
+    <h2 class="display-4 text-light">Products</h2>
+</div>
+
 <p id="notice"><%= notice %></p>
-
-<h1>Products</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= link_to product.name, product_path(product) %></td>
-        <td><%= product.description %></td>
-        <td><%= product.quantity %></td>
-        <td><%= product.price %></td>
-        <td><%= product.status %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Product', new_product_path %>
+<div class="container py-3">
+  <div class="row">
+    <div class="card max-width pb-3 px-3 d-flex">
+      <div class="d-flex justify-content-end pt-3">
+        <b class="mx-2">
+          <%= pluralize(@products.count, "product") %> Published
+        </b>
+        <%= link_to "Create product", new_product_path, class: "btn btn-success text-light mx-3" %>
+      </div>
+      <hr>
+      <div class="d-flex flex-wrap">
+        <%= render 'products/product_card', object: @products %>
+      </div>
+    </div>
+  </div>
+</div>
