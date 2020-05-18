@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content= "text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Market place</h1>
+    <p>
+      A New product have been published.
+    </p>
+    <p>
+      Now you can see just follow this link: <%= link_to @product.name, product_url(@product) %>
+    </p>
+    <p>Thanks for support us and have a great day!</p>
+  </body>
+</html>

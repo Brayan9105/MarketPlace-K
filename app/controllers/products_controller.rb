@@ -8,7 +8,9 @@ class ProductsController < ApplicationController
   end
 
   def show
-    if (current_user.id != @product.user.id) && !@product.published?
+    if user_signed_in?
+      redirect_to products_path if (current_user.id != @product.user.id) && !@product.published?
+    elsif !@product.published?
       redirect_to products_path
     end
   end
@@ -25,6 +27,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
+      ProductMailer.product_published(@product).deliver if @product.published?
       @product.save_categories
       flash[:notice] = 'Product was successfully created.'
       redirect_to @product
