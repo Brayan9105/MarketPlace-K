@@ -27,7 +27,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
-      ProductMailer.product_published(@product).deliver if @product.published?
+      ProductMailer.product_published(@product).deliver! if @product.published?
       @product.save_categories
       flash[:notice] = 'Product was successfully created.'
       redirect_to @product

@@ -34,7 +34,7 @@ class Product < ApplicationRecord
     elsif self.status == 'archived' || self.status == 'unpublished'
       self.status = 'published'
       self.save
-      ProductMailer.product_published(self).deliver
+      ProductMailer.product_published(self).deliver!
     end
   end
 
