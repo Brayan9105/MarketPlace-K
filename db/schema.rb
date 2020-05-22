@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_05_223139) do
+ActiveRecord::Schema.define(version: 2020_05_22_204219) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -59,6 +59,13 @@ ActiveRecord::Schema.define(version: 2020_05_05_223139) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "authentication_providers", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_name_on_authentication_providers"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -85,10 +92,34 @@ ActiveRecord::Schema.define(version: 2020_05_05_223139) do
     t.index ["product_id"], name: "index_productxcategories_on_product_id"
   end
 
+  create_table "social_accounts", force: :cascade do |t|
+    t.string "token"
+    t.string "secret"
+    t.integer "user_id"
+    t.integer "authentication_provider_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["authentication_provider_id"], name: "index_social_accounts_on_authentication_provider_id"
+    t.index ["user_id"], name: "index_social_accounts_on_user_id"
+  end
+
   create_table "statuses", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "user_authentications", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "authentication_provider_id"
+    t.string "uid"
+    t.string "token"
+    t.datetime "token_expires_at"
+    t.text "params"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authentication_provider_id"], name: "index_user_authentications_on_authentication_provider_id"
+    t.index ["user_id"], name: "index_user_authentications_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -103,6 +134,8 @@ ActiveRecord::Schema.define(version: 2020_05_05_223139) do
     t.string "address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "provider"
+    t.string "uid"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

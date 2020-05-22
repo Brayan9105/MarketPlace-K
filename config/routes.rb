@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:index, :show]
 
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: { registrations: 'users/registrations', omniauth_callbacks: 'users/omniauth_callbacks' }
   get 'user/:id', to: 'users#show', as: 'user'
   get 'users', to: 'users#index'
 
