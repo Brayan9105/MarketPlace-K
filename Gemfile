@@ -24,6 +24,9 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'image_processing'
 gem 'activeadmin'
+
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

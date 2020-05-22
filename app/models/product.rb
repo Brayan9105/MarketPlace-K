@@ -47,8 +47,4 @@ class Product < ApplicationRecord
       end
     end
   end#correct_image_type
-
-  def is_propietary?(current_user)
-    current_user.id == self.user.id
-  end
 end
