@@ -34,6 +34,7 @@ class Product < ApplicationRecord
     elsif self.status == 'archived' || self.status == 'unpublished'
       self.status = 'published'
       self.save
+      ProductMailer.product_published(self).deliver!
     end
   end
 
@@ -45,5 +46,9 @@ class Product < ApplicationRecord
         end
       end
     end
+  end#correct_image_type
+
+  def is_propietary?(current_user)
+    current_user.id == self.user.id
   end
 end

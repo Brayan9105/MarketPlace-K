@@ -8,9 +8,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    if (current_user.id != @product.user.id) && !@product.published?
-      redirect_to products_path
-    end
+    redirect_to products_path and return unless can_open_product?(@product)
   end
 
   def new
@@ -25,6 +23,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
+      ProductMailer.product_published(@product).deliver! if @product.published?
       @product.save_categories
       flash[:notice] = 'Product was successfully created.'
       redirect_to @product
@@ -61,6 +60,11 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def can_open_product?(product)
+    return false if !user_signed_in? && !product.published?
+    product.published? || current_user.id == product.user_id
+  end
 
   def set_product
     @product = Product.find(params[:id])
