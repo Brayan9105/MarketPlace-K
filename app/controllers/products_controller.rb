@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    can_open_product?(@product)
+    redirect_to products_path and return unless can_open_product?(@product)
   end
 
   def new
@@ -62,11 +62,8 @@ class ProductsController < ApplicationController
   private
 
   def can_open_product?(product)
-    if user_signed_in?
-      redirect_to products_path if (current_user.id != product.user.id) && !product.published?
-    elsif !product.published?
-      redirect_to products_path
-    end
+    return false if !user_signed_in? && !product.published?
+    product.published? || current_user.id == product.user_id
   end
 
   def set_product
