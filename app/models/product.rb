@@ -46,5 +46,5 @@ class Product < ApplicationRecord
         end
       end
     end
-  end
+  end#correct_image_type
 end

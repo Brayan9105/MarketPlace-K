@@ -8,11 +8,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    if user_signed_in?
-      redirect_to products_path if (current_user.id != @product.user.id) && !@product.published?
-    elsif !@product.published?
-      redirect_to products_path
-    end
+    can_open_product?(@product)
   end
 
   def new
@@ -64,6 +60,14 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def can_open_product?(product)
+    if user_signed_in?
+      redirect_to products_path if (current_user.id != product.user.id) && !product.published?
+    elsif !product.published?
+      redirect_to products_path
+    end
+  end
 
   def set_product
     @product = Product.find(params[:id])
