@@ -264,8 +264,8 @@ Devise.setup do |config|
                scope: 'email',
                info_fields: 'email'
 
-config.omniauth :google_oauth2, '', '',
-                 scope: 'userinfo.email'
+  config.omniauth :google_oauth2, '', '', skip_jwt: true,
+                   scope: 'userinfo.email'
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
