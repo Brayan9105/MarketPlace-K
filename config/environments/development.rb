@@ -69,7 +69,7 @@ Rails.application.configure do
     domain: "Marketplace.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: "",
-    password: ""
+    user_name: Rails.application.credentials.gmail[:mail],
+    password: Rails.application.credentials.gmail[:password]
   }
 end
