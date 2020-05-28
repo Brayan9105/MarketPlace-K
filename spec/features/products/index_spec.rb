@@ -23,7 +23,7 @@ RSpec.describe 'Product index', type: :feature do
   end#Describe
 
   describe 'when a user are log in' do
-    scenario 'click on create product' do
+    before(:each) do
       visit '/users/sign_in'
       expect(page).to have_http_status(200)
       fill_in('Email', with: 'user@example.com')
@@ -32,54 +32,26 @@ RSpec.describe 'Product index', type: :feature do
       expect(page).to have_current_path('/')
       expect(page).to have_content('user@example.com')
       visit '/products'
-      expect(page).to have_content('Products')
+    end
+
+    scenario 'click on create product' do
       click_on 'Create product'
       expect(page).to have_current_path(new_product_path)
     end
 
     scenario 'have product published' do
-      visit '/users/sign_in'
-      expect(page).to have_http_status(200)
-      fill_in('Email', with: 'user@example.com')
-      fill_in('Password', with: '12345678')
-      click_button('Log in')
-      expect(page).to have_current_path('/')
-      expect(page).to have_content('user@example.com')
-      visit '/products'
       expect(page).to have_content('Products')
       expect(page).to have_content('Edit')
       expect(page).to have_content('Archive')
     end
 
     scenario 'clicked on edit product' do
-      visit '/users/sign_in'
-      expect(page).to have_http_status(200)
-      fill_in('Email', with: 'user@example.com')
-      fill_in('Password', with: '12345678')
-      click_button('Log in')
-      expect(page).to have_current_path('/')
-      expect(page).to have_content('user@example.com')
-      visit '/products'
-      expect(page).to have_content('Products')
-      expect(page).to have_content('Edit')
-      expect(page).to have_content('Archive')
       click_on('Edit')
       expect(page).to have_http_status(200)
       expect(page).to have_current_path(edit_product_path(@product))
     end
 
     scenario 'clicked on archive product' do
-      visit '/users/sign_in'
-      expect(page).to have_http_status(200)
-      fill_in('Email', with: 'user@example.com')
-      fill_in('Password', with: '12345678')
-      click_button('Log in')
-      expect(page).to have_current_path('/')
-      expect(page).to have_content('user@example.com')
-      visit '/products'
-      expect(page).to have_content('Products')
-      expect(page).to have_content('Edit')
-      expect(page).to have_content('Archive')
       click_on('Archive')
       expect(page).to have_http_status(200)
     end
