@@ -53,7 +53,7 @@ RSpec.describe ProductsController, type: :controller do
       it 'dont assigns to @products' do
         product = Product.create(name: 'product test', user: @user, status: 'archived')
         get :index
-        expect(assigns(:products)).to eq([])
+        expect(assigns(:products)).not_to eq([product])
       end
 
       it 'assigns to @products' do
