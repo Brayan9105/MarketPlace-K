@@ -24,6 +24,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'image_processing'
 gem 'activeadmin'
+gem "aws-sdk-s3", require: false
 
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
@@ -49,7 +50,6 @@ group :development do
 end
 
 group :production do
-  gem "aws-sdk-s3", require: false
   gem 'pg'
 end
 
