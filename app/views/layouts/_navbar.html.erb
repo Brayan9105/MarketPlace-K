@@ -15,8 +15,10 @@
             <div class="dropdown-divider"></div>
               <%= link_to 'Categories', categories_path , class: "dropdown-item" %>
             <div class="dropdown-divider"></div>
-            <% Category.all.each do |category| %>
-              <%= link_to category.name.capitalize(), category_path(category), class: "dropdown-item" %>
+            <% if Category.all %>
+              <% Category.all.each do |category| %>
+                <%= link_to category.name.capitalize(), category_path(category), class: "dropdown-item" %>
+              <% end %>
             <% end %>
         </div>
       </li>
